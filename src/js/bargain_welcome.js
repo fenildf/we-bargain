@@ -8,6 +8,34 @@
 var mountNode = document.getElementById('content');
 var UI = AMUIReact;
 
+
+
+/**
+ * 为了使触摸事件生效，在渲染所有组件之前调用
+ */
+React.initializeTouchEvents(true);
+
+
+
+
+/**
+ * 路由相关
+ * @type {[type]}
+ */
+var Router = ReactRouter; // or var Router = ReactRouter; in browsers
+
+var DefaultRoute = Router.DefaultRoute;
+var Link = Router.Link;
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
+
+
+
+
+
+
+
+
 /* ============== Welcome Pages ============= */
 
 /**
@@ -18,8 +46,8 @@ var UI = AMUIReact;
 var WelcomeImg = React.createClass({
   render : function(){
     return(
-      <p>
-        <UI.Image src={this.props.src} className={this.props.className} responsive />
+      <p className="am-padding-top-30">
+        <UI.Image src={this.props.src} className={this.props.style} responsive />
       </p>
     );
   }
@@ -32,7 +60,7 @@ var WelcomeImgList = React.createClass({
   render : function(){
     var imgNode = this.props.data.map(function(item){
       return (
-        <WelcomeImg src={item.src} />
+        <WelcomeImg src={item.src} style={item.style + " am-center "} />
       );
     });
     return (
@@ -49,7 +77,11 @@ var WelcomeImgList = React.createClass({
 var WelcomeSubmit = React.createClass({
   render : function(){
     return (
-      <button></button>
+      <p className="am-block am-padding-bottom-30">
+      <Link to="list" params={{userId: "user.id"}} query={{foo: "bar"}}>
+        <UI.Image src="src/img/welcome_submit.png" className="welcome_submit am-center" responsive />
+      </Link>
+      </p>
     );
   }
 });
@@ -81,15 +113,126 @@ var WelcomeBox = React.createClass({
   render : function(){
     return (
       <UI.Container>
+      <RouteHandler/>
         <WelcomeImgList data={this.state.data} />
         <WelcomeSubmit onClick={this.handleSubmit} />
+
       </UI.Container>
     );
   }
 });
 
-var welcomeContent = (
-    <WelcomeBox url="src/json/welcome_imglist.json" />
+var Welcome = React.createClass({
+  render : function(){
+    return (
+      <WelcomeBox url="src/json/welcome_imglist.json" />
+    );
+  }
+});
+// var welcomePage = (
+//   <Welcome />
+// );
+// var Welcome = (
+//     <WelcomeBox url="src/json/welcome_imglist.json" />
+// );
+
+// React.render(welcomePage, mountNode);
+
+/* ============== Course List Pages ============= */
+var CourseType = React.createClass({
+  render : function(){
+    return (
+      <ul></ul>
+    );
+  }
+});
+
+var CourseList = React.createClass({
+  render : function(){
+    return (
+      <ul className="course_list"></ul>
+    );
+  }
+});
+var TabsInstance = React.createClass({
+  render : function(){
+    return (
+      <UI.Nav tabs justify>
+        <UI.NavItem active href="http://www.amazeui.org">首页</UI.NavItem>
+        <UI.NavItem href="http://www.amazeui.org">开始使用</UI.NavItem>
+        <UI.NavItem href="http://www.amazeui.org">按需定制</UI.NavItem>
+        <UI.NavItem href="http://www.amazeui.org">加入我们</UI.NavItem>
+      </UI.Nav>
+    );
+  }
+});
+var CourseListBox = React.createClass({
+  render : function(){
+    return (
+      <UI.Panel>
+        <TabsInstance />
+      </UI.Panel>
+    );
+  }
+});
+
+/* ============== Course View Pages ============= */
+
+var CourseView = React.createClass({
+  render : function(){
+    return (
+      <article></article>
+    );
+  }
+});
+
+/* ============== Router ============= */
+
+var routes = (
+  <Route name="welcome" path="/" handler={Welcome}>
+    <Route name="list" handler={CourseListBox}/>
+    <Route name="view" handler={CourseView}/>
+    <DefaultRoute handler={Welcome}/>
+  </Route>
 );
 
-React.render(welcomeContent, mountNode);
+Router.run(routes, function (Handler) {
+  React.render(<Handler/>, document.body);
+});
+// /**
+//  * 路由相关
+//  * @type {[type]}
+//  */
+// var Router = ReactRouter; // or var Router = ReactRouter; in browsers
+
+// var DefaultRoute = Router.DefaultRoute;
+// var Link = Router.Link;
+// var Route = Router.Route;
+// var RouteHandler = Router.RouteHandler;
+
+// var CourseList = React.createClass({
+//   render : function(){
+//     return (
+//       <ul className="course_list"></ul>
+//     );
+//   }
+// });
+// var CourseView = React.createClass({
+//   render : function(){
+//     return (
+//       <article></article>
+//     );
+//   }
+// });
+
+// var routes = (
+//   <Route name="app" path="/" handler={Welcome}>
+//     <Route name="list" handler={CourseList}/>
+//     <Route name="view" handler={CourseView}/>
+//     <DefaultRoute handler={Welcome}/>
+//   </Route>
+// );
+
+// Router.run(routes, function (Handler) {
+//   React.render(<Handler/>, document.body);
+// });

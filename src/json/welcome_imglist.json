@@ -1,7 +1,6 @@
 [
-	{ "src":"src/img/welcome_tips.png", "className":"welcome_tips", "width":"", "height":"", "alt":"" },
-	{ "src":"src/img/welcome_title.png", "className":"welcome_title", "width":"", "height":"", "alt":"" },
-	{ "src":"src/img/welcome_h2.png", "className":"welcome_h2", "width":"", "height":"", "alt":"" },
-	{ "src":"src/img/welcome_content.png", "className":"welcome_content", "width":"", "height":"", "alt":"" },
-	{ "src":"src/img/welcome_submit.png", "className":"welcome_submit", "width":"", "height":"", "alt":"" }
+	{ "src":"src/img/welcome_tips.png", "style":"welcome_tips", "width":"", "height":"", "alt":"" }
+	,{ "src":"src/img/welcome_title.png", "style":"welcome_title", "width":"", "height":"", "alt":"" }
+	,{ "src":"src/img/welcome_h2.png", "style":"welcome_h2", "width":"", "height":"", "alt":"" }
+	,{ "src":"src/img/welcome_content.png", "style":"welcome_content", "width":"", "height":"", "alt":"" }
 ]

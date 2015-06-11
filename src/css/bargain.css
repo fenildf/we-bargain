@@ -8,3 +8,9 @@
 body.welcome {
 	background-color: #FFF9EC;
 }
+.am-padding-top-30 {
+	padding-top: 30px;
+}
+.am-padding-bottom-30 {
+	padding-bottom: 30px;
+}
