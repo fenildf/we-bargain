@@ -1,0 +1,10 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2015-06-11 16:36:11
+ * @version $Id$
+ */
+body.welcome {
+	background-color: #FFF9EC;
+}
