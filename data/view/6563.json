@@ -1,0 +1,33 @@
+{
+	"stat": 1,
+	"rows": 1,
+	"data": {
+		"courseId": "6563",
+		"courseName": "\u521d\u4e8c\u4e0a\u5b66\u671f\u79cb\u5b63\u7269\u7406\u6ee1\u5206\u51b2\u523a\u73ed\uff08\u4eba\u6559\u7248\uff09",
+		"price": "420",
+		"teacherName": "\u5468\u4f1f\u5b66",
+		"videoPath": "http:\/\/touch.xxyys.com\/video\/getVideoPath\/79252.m3u8",
+		"sysNowTime": 1434456328,
+		"type": 1,
+		"stuId": 10114,
+		"bargainPrice": "264",
+		"bargainStartTime": "1434355232",
+		"bargainEndTime": 1434441632,
+		"bargainLogs": [{
+			"nickname": "\u5bc2\u5bde\u52b1\u5fd7",
+			"headimg": "http:\/\/wx.qlogo.cn\/mmopen\/ajNVdqHZLLBiaO2ciazYDAHIia4EqAnJKXpjfg8w2MXoE9NTB866e2TkiarAbdSa6bPibhUO0y4tmuhJ0K9woA0bWLQ\/46",
+			"price": 29,
+			"create_time": "2015-06-15 16:24:30"
+		}, {
+			"nickname": "\u5fc3\u5bfc\u4f55\u6770\u4e30\ud83d\ude80",
+			"headimg": "http:\/\/wx.qlogo.cn\/mmopen\/PiajxSqBRaEI4lh2NEgHkRbv4PmF8pULaDcXbXpvtlUw99fSIicfVowibAsyqpXUmBygb3eDpcGNYybRicf787G03A\/46",
+			"price": 24,
+			"create_time": "2015-06-15 16:02:47"
+		}, {
+			"nickname": "\u80f6\u7247K\ud83d\udcf7",
+			"headimg": "http:\/\/wx.qlogo.cn\/mmopen\/MqDgghIgfzIut8zzR9fiaUpULFm3ibCiab6ghXmpszgeaAm06araH032EyfMpV57GUZnicdl2xAbM4sYiabQ3O5aASw\/46",
+			"price": 6,
+			"create_time": "2015-06-15 16:02:04"
+		}]
+	}
+}

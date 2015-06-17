@@ -1,0 +1,23 @@
+{
+	"stat": 1,
+	"rows": 3,
+	"data": [{
+		"id": "2",
+		"name": "\u6570\u5b66",
+		"digit": "2",
+		"alias": "shuxue",
+		"sort_flag": "1"
+	}, {
+		"id": "1",
+		"name": "\u8bed\u6587",
+		"digit": "1",
+		"alias": "yuwen",
+		"sort_flag": "2"
+	}, {
+		"id": "3",
+		"name": "\u82f1\u8bed",
+		"digit": "4",
+		"alias": "yingyu",
+		"sort_flag": "3"
+	}]
+}

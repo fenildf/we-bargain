@@ -1,0 +1,55 @@
+{
+	"stat": 1,
+	"rows": 3,
+	"data": [{
+		"subjectId": 2,
+		"subjectName": "\u6570\u5b66",
+		"courseNum": 3,
+		"courseList": [{
+			"courseId": "6563",
+			"courseName": "\u521d\u4e8c\u4e0a\u5b66\u671f\u79cb\u5b63\u7269\u7406\u62d3\u5c55\u62d4\u9ad8\u73ed\uff08\u5317\u5e08\u7248\uff09",
+			"price": "420",
+			"teacherName": "\u5468\u4f1f\u5b66",
+			"teacherImg": "http:\/\/s03.xesimg.com\/teacher\/13190321567253.jpg",
+			"bargainNum": 62
+		}, {
+			"courseId": "6567",
+			"courseName": "\u521d\u4e8c\u4e0a\u5b66\u671f\u79cb\u5b63\u7269\u7406\u6ee1\u5206\u51b2\u523a\u73ed\uff08\u5317\u5e08\u7248\uff09",
+			"price": "420",
+			"teacherName": "\u8881\u5a9b",
+			"teacherImg": "http:\/\/s03.xesimg.com\/teacher\/13190222113661.jpg",
+			"bargainNum": 2
+		}, {
+			"courseId": "6564",
+			"courseName": "\u521d\u4e8c\u4e0a\u5b66\u671f\u79cb\u5b63\u7269\u7406\u6ee1\u5206\u51b2\u523a\u73ed\uff08\u4eba\u6559\u7248\uff09",
+			"price": "420",
+			"teacherName": "\u5468\u4f1f\u5b66",
+			"teacherImg": "http:\/\/s03.xesimg.com\/teacher\/13190321567253.jpg",
+			"bargainNum": 4
+		}]
+	}, {
+		"subjectId": 1,
+		"subjectName": "\u8bed\u6587",
+		"courseNum": 1,
+		"courseList": [{
+			"courseId": "6562",
+			"courseName": "\u521d\u4e8c\u4e0a\u5b66\u671f\u79cb\u5b63\u7269\u7406\u62d3\u5c55\u62d4\u9ad8\u73ed\uff08\u4eba\u6559\u7248\uff09",
+			"price": "420",
+			"teacherName": "\u5468\u4f1f\u5b66",
+			"teacherImg": "http:\/\/s03.xesimg.com\/teacher\/13190321567253.jpg",
+			"bargainNum": 4
+		}]
+	}, {
+		"subjectId": 3,
+		"subjectName": "\u82f1\u8bed",
+		"courseNum": 1,
+		"courseList": [{
+			"courseId": "10086",
+			"courseName": "2013\u5e74\u4e2d\u8003\u7269\u7406\u8bd5\u5377\u89e3\u6790\uff08\u5317\u4eac\u5377)",
+			"price": "10",
+			"teacherName": "\u675c\u6625\u96e8",
+			"teacherImg": "http:\/\/s02.xesimg.com\/teacher\/2013\/08\/26\/13774957873234.jpg",
+			"bargainNum": 0
+		}]
+	}]
+}

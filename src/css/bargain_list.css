@@ -1,0 +1,33 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2015-06-11 16:36:11
+ * @version $Id$
+ */
+
+.courselist_item:nth-last-child(1) {
+	border-bottom: 0 none !important;
+}
+.course_list {}
+.courselist_item h4 {
+	font-size: 1.5rem;
+	margin-bottom: 0 !important;
+}
+.courselist_price {
+	font-size: 1.3rem;
+}
+.list_btn {
+	width: 80%;
+	border-width: 1px;
+	border-style: solid;
+}
+.list_btn a {
+	color: #FFF;
+}
+.list_btn_go {
+	border-color:#dd514c; 
+}
+.list_btn_view {
+	border-color: #0e90d2;
+}

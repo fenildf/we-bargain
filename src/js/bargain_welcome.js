@@ -5,62 +5,61 @@
  * @version $Id$
  */
 
+/**
+ * mountNode 渲染React内容的DOM节点
+ * @type {[type]}
+ */
 var mountNode = document.getElementById('content');
+
+/**
+ * AmazeUI for React
+ * @type {[type]}
+ */
 var UI = AMUIReact;
-
-
 
 /**
  * 为了使触摸事件生效，在渲染所有组件之前调用
  */
 React.initializeTouchEvents(true);
 
-
-
-
-/**
- * 路由相关
- * @type {[type]}
- */
-var Router = ReactRouter; // or var Router = ReactRouter; in browsers
-
-var DefaultRoute = Router.DefaultRoute;
-var Link = Router.Link;
-var Route = Router.Route;
-var RouteHandler = Router.RouteHandler;
-
-
-
-
-
-
-
-
 /* ============== Welcome Pages ============= */
-
 /**
- * 单个图片组件
+ * Welcome 组件
+ * @param  {String} ){                 return (      <div className [description]
+ * @return {[type]}     [description]
+ */
+// var Welcome = React.createClass({
+//   render : function(){
+//     return (
+//       <div className="welcome">
+//         <WelcomeBox url="src/json/welcome_imglist.json" />
+//       </div>
+//     );
+//   }
+// });
+/**
+ * Welcome 页中的 ：单个图片组件
  * @param  {[type]} ){                 return(        <UI.Image    );  }} [description]
  * @return {[type]}     [description]
  */
 var WelcomeImg = React.createClass({
   render : function(){
     return(
-      <p className="am-padding-top-30">
+      <p className="am-padding-top-sm">
         <UI.Image src={this.props.src} className={this.props.style} responsive />
       </p>
     );
   }
 });
 /**
- * 图片列表
+ * Welcome 页中的 ：图片列表
  * @type {[type]}
  */
 var WelcomeImgList = React.createClass({
   render : function(){
-    var imgNode = this.props.data.map(function(item){
+    var imgNode = this.props.data.map(function(item, i){
       return (
-        <WelcomeImg src={item.src} style={item.style + " am-center "} />
+        <WelcomeImg key={i} src={item.src} style={item.style + " am-center "} />
       );
     });
     return (
@@ -71,23 +70,32 @@ var WelcomeImgList = React.createClass({
   }
 });
 /**
- * welcome页提交按钮
+ * Welcome 页中的 ：提交按钮
  * @type {[type]}
  */
 var WelcomeSubmit = React.createClass({
   render : function(){
     return (
-      <p className="am-block am-padding-bottom-30">
-      <Link to="list" params={{userId: "user.id"}} query={{foo: "bar"}}>
-        <UI.Image src="src/img/welcome_submit.png" className="welcome_submit am-center" responsive />
-      </Link>
+      <p className="am-block am-padding-bottom-sm">
+        <a href="/">
+          <UI.Image src="src/img/welcome_submit.png" className="welcome_submit am-center" responsive />
+        </a>
       </p>
     );
   }
 });
 /**
- * welcome页面整体布局
+ * Welcome 页的整体布局
  * @type {[type]}
+ */
+/**
+ * Welcome 页的整体布局
+ * @param  {[type]} getInitialState   : return {data :[]}         [description]
+ * @param  {[type]} componentDidMount : this.loadImgData()        [description]
+ * @param  {[type]} loadImgData       : [description]            
+ * @param  {[type]} handleSubmit      :             [description]
+ * @param  {[type]} render            :             [description]
+ * @return {[type]}                   :[description]
  */
 var WelcomeBox = React.createClass({
   getInitialState : function(){
@@ -112,127 +120,16 @@ var WelcomeBox = React.createClass({
   handleSubmit : function(){},
   render : function(){
     return (
-      <UI.Container>
-      <RouteHandler/>
-        <WelcomeImgList data={this.state.data} />
-        <WelcomeSubmit onClick={this.handleSubmit} />
-
-      </UI.Container>
+      <div className="welcome">
+        <UI.Container>
+          <WelcomeImgList data={this.state.data} />
+          <WelcomeSubmit />
+        </UI.Container>
+      </div>
     );
   }
 });
 
-var Welcome = React.createClass({
-  render : function(){
-    return (
-      <WelcomeBox url="src/json/welcome_imglist.json" />
-    );
-  }
-});
-// var welcomePage = (
-//   <Welcome />
-// );
-// var Welcome = (
-//     <WelcomeBox url="src/json/welcome_imglist.json" />
-// );
 
-// React.render(welcomePage, mountNode);
 
-/* ============== Course List Pages ============= */
-var CourseType = React.createClass({
-  render : function(){
-    return (
-      <ul></ul>
-    );
-  }
-});
-
-var CourseList = React.createClass({
-  render : function(){
-    return (
-      <ul className="course_list"></ul>
-    );
-  }
-});
-var TabsInstance = React.createClass({
-  render : function(){
-    return (
-      <UI.Nav tabs justify>
-        <UI.NavItem active href="http://www.amazeui.org">首页</UI.NavItem>
-        <UI.NavItem href="http://www.amazeui.org">开始使用</UI.NavItem>
-        <UI.NavItem href="http://www.amazeui.org">按需定制</UI.NavItem>
-        <UI.NavItem href="http://www.amazeui.org">加入我们</UI.NavItem>
-      </UI.Nav>
-    );
-  }
-});
-var CourseListBox = React.createClass({
-  render : function(){
-    return (
-      <UI.Panel>
-        <TabsInstance />
-      </UI.Panel>
-    );
-  }
-});
-
-/* ============== Course View Pages ============= */
-
-var CourseView = React.createClass({
-  render : function(){
-    return (
-      <article></article>
-    );
-  }
-});
-
-/* ============== Router ============= */
-
-var routes = (
-  <Route name="welcome" path="/" handler={Welcome}>
-    <Route name="list" handler={CourseListBox}/>
-    <Route name="view" handler={CourseView}/>
-    <DefaultRoute handler={Welcome}/>
-  </Route>
-);
-
-Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.body);
-});
-// /**
-//  * 路由相关
-//  * @type {[type]}
-//  */
-// var Router = ReactRouter; // or var Router = ReactRouter; in browsers
-
-// var DefaultRoute = Router.DefaultRoute;
-// var Link = Router.Link;
-// var Route = Router.Route;
-// var RouteHandler = Router.RouteHandler;
-
-// var CourseList = React.createClass({
-//   render : function(){
-//     return (
-//       <ul className="course_list"></ul>
-//     );
-//   }
-// });
-// var CourseView = React.createClass({
-//   render : function(){
-//     return (
-//       <article></article>
-//     );
-//   }
-// });
-
-// var routes = (
-//   <Route name="app" path="/" handler={Welcome}>
-//     <Route name="list" handler={CourseList}/>
-//     <Route name="view" handler={CourseView}/>
-//     <DefaultRoute handler={Welcome}/>
-//   </Route>
-// );
-
-// Router.run(routes, function (Handler) {
-//   React.render(<Handler/>, document.body);
-// });
+React.render(<WelcomeBox url={bargain.welcomeUrl} />, mountNode);

@@ -1,0 +1,12 @@
+{
+	"stat": 1,
+	"rows": 3,
+	"data": [{
+			"courseId": "10086",
+			"courseName": "2013\u5e74\u4e2d\u8003\u7269\u7406\u8bd5\u5377\u89e3\u6790\uff08\u5317\u4eac\u5377)",
+			"price": "10",
+			"teacherName": "\u675c\u6625\u96e8",
+			"teacherImg": "http:\/\/s02.xesimg.com\/teacher\/2013\/08\/26\/13774957873234.jpg",
+			"bargainNum": 0
+		}]
+}

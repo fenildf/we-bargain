@@ -1,0 +1,17 @@
+{
+	"stat": 1,
+	"rows": 3,
+	"data": [{
+		"subjectId": 2,
+		"subjectName": "\u6570\u5b66",
+		"courseNum": 3
+	}, {
+		"subjectId": 1,
+		"subjectName": "\u8bed\u6587",
+		"courseNum": 1
+	}, {
+		"subjectId": 3,
+		"subjectName": "\u82f1\u8bed",
+		"courseNum": 1
+	}]
+}

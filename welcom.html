@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-	<title>课程列表</title>
+	<title>大家来砍价</title>
 	<meta name="renderer" content="webkit">
 	<!-- No Baidu Siteapp-->
 	<!-- <meta http-equiv="Cache-Control" content="no-siteapp"/> -->
@@ -15,7 +15,13 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 	<link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.4.0/css/amazeui.min.css">
-	<link rel="stylesheet" href="src/css/bargain_list.css">
+	<style>
+		.welcome {
+			width: 100%;
+			height: 100%;
+			background-color: #FFF9EC;
+		}
+	</style>
 	
 	<script src="http://cdn.amazeui.org/react/0.13.3/react.js"></script>
 	<script src="http://cdn.bootcss.com/react/0.13.3/JSXTransformer.js"></script>
@@ -26,11 +32,9 @@
 	<div id="content">Loading...</div>
 	<script>
 	var bargain = {
-		subjectUrl : "/data/list/nav.json",	// 取学科列表，无需传参 /Welfares/subjectList
-		listUrl : "data/list/", // 单学科下课程列表，两个参数 /Welfares/courseList/1/1
-		defaultId : "2" // 默认显示的学科id
+		welcomeUrl : "src/json/welcome_imglist.json"
 	};
 	</script>
-    <script src="src/js/bargain_list.js" type="text/jsx"></script>
+    <script src="src/js/bargain_welcome.js" type="text/jsx"></script>
 </body>
 </html>
