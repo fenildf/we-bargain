@@ -17,6 +17,18 @@ var mountNode = document.getElementById('content');
  */
 var UI = AMUIReact;
 
+var xue = xue || {};
+xue.ajaxCheck = function(d){
+  if(d.stat == -1){
+    window.location.href = '/Welfares/lists/'; return false;
+  }else if(d.stat == 0){
+    alert(d.data);
+    return false;
+  }else{
+    return d.data;
+  }
+
+};
 /**
  * 为了使触摸事件生效，在渲染所有组件之前调用
  */
@@ -83,11 +95,16 @@ var ListPage = React.createClass({
       url: this.props.navUrl,
       dataType : 'json',
       success : function(result){
-        if(result.stat !== 1){ return false; }
+        var d = xue.ajaxCheck(result);
+        if(!d){
+          return false;
+        }
+        // if(result.stat !== 1){ return false; }
         var list = [], sid = this.props.defaultId || 0;
+        
         $.each(result.data, function(k, v){
           sid = sid == 0 ? v.subjectId : sid;
-          list.push({id: v.subjectId, name: v.subjectName});
+          list.push({id: v.id, name: v.name});
         });
         this.setState({data: list, id : sid});
       }.bind(this),
@@ -114,7 +131,7 @@ var ListNavbar = React.createClass({
     var that = this;
     setTimeout(function(){
       that.loadListData(that.props.id);
-    }, 100);
+    }, 500);
   },
   
   handleClick : function(id, i){
@@ -125,8 +142,12 @@ var ListNavbar = React.createClass({
       url : this.props.url + id + '.json',
       dataType : 'json',
       success : function(result){
-        if(result.stat !== 1){ return false; }
-        var d = result.data;
+        var d = xue.ajaxCheck(result);
+        if(!d){
+          return false;
+        }
+        // if(result.stat !== 1){ return false; }
+        // var d = result.data;
         this.setState({data: d, id: id});
       }.bind(this),
       error: function(){}.bind(this)
