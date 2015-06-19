@@ -176,7 +176,7 @@ var CountDown = React.createClass({
     // var endtime = new Date(this.props.end * 1000);
     var endTime = this.props.end * 1000;
     var lag = (endTime - startTime) / 1000; //当前时间和结束时间之间的秒数
-    var content = 
+    var content = '';
     if (lag > 0) {
         var nMS2 = Math.floor(nMS / 100) % 10;
         var second = pad(Math.floor(lag % 60));

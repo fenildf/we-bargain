@@ -186,7 +186,7 @@ var Listbar = React.createClass({
             </UI.Button>
           </div>
       );
-      if(con.assistNum){
+      if(con.hasOwnProperty('assistNum')){
         btn = (
           <div className="list_btn list_btn_view">
             <p className="am-text-xs am-text-center am-text-primary am-margin-bottom-0">已有{con.assistNum}人帮砍</p>
