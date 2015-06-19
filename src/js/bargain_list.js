@@ -200,11 +200,11 @@ var Listbar = React.createClass({
       }
       return (
         <li key={con.courseId} id={"view_" + con.courseId} className="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left courselist_item">
-        <div className="am-list-thumb am-u-sm-4 am-text-center am-padding-0">
-            <UI.Image src={con.teacherImg} responsive />
-            <p className="am-center am-margin-xs">{con.teacherName} 老师</p>
+        <div className="am-list-thumb am-u-sm-3 am-text-center am-padding-xs">
+            <UI.Image src={con.teacherImg} width="60" height="60" responsive className="am-center am-img-thumbnail am-radius" />
+            <p className="am-center am-margin-xs">{con.teacherName}</p>
         </div>
-        <div className="am-list-main am-u-sm-8">
+        <div className="am-list-main am-u-sm-9">
           <h4 className="am-list-item am-margin-bottom-0">{con.courseName}</h4>
           <div className="am-list-item-text">
             <p className="courselist_price am-margin-bottom-xs">课程价：<span className="am-text-danger">{con.price}</span> 元</p>

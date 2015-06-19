@@ -296,7 +296,7 @@ var CourseContent = React.createClass({
   },
   render: function() {
     var _data = this.props.data;
-    
+
     var _video = (
         <video id="CourseVideo" controls height="250" width="100%;" title="暂停">
           <source src={_data.videoPath} />
@@ -305,14 +305,18 @@ var CourseContent = React.createClass({
     );
     var countdown = "", btn = "", shareBtn = "";
     if(_data.type != 1){
+      var _assistBtn = (<a href="#/assist" onClick={this.handleAssist.bind(this, this.props.cid, _data.stuId)} className="am-btn am-btn-warning am-btn-lg am-fl am-margin-left-sm am-round course_btn">帮TA砍价</a>);
+      if(_data.hasOwnProperty('bargainEndTime')){
+        var _now = new Date();
+        var _end = _data.bargainEndTime * 1000;
+        _assistBtn = (<a href="#/assist" className="am-btn am-btn-warning am-disabled am-btn-lg am-fl am-margin-left-sm am-round course_btn">帮TA砍价</a>);
+      }
+      
       // 帮TA砍价
       btn = (
         <div className="">
-          {/*<UI.ModalTrigger modal={modal}>*/}
-          <a href="#/assist" onClick={this.handleAssist.bind(this, this.props.cid, _data.stuId)} className="am-btn am-btn-warning am-btn-lg am-fl am-margin-left-sm am-round course_btn">帮TA砍价</a>
-          {/*</UI.ModalTrigger>*/}
+          {_assistBtn}
           <a href="/Welfares/" className="am-btn am-btn-primary am-btn-lg am-fr am-round course_btn am-margin-right-sm">我也要参加</a>
-          {/*<UI.Button amSize="lg" amStyle="warning" round className="am-center course_btn">帮TA砍价</UI.Button>*/}
         </div>
       );
       shareBtn = (
@@ -434,7 +438,7 @@ var BargainUsers = React.createClass({
       );
     });
     return (
-      <UI.Panel header="帮砍信息" className="am-margin-top-sm">
+      <UI.Panel header="砍价信息" className="am-margin-top-sm">
       <UI.Table fill>
         <thead></thead>
         <tbody>
