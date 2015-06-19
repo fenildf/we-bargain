@@ -157,6 +157,8 @@ var ListNavbar = React.createClass({
     var nav = this.props.data;
     var _item = nav.map(function(d, i){
       var cls = this.state.id == d.id ? ' am-active' : '';
+      console.log('cls: ' + cls);
+      console.log('---------------');
       return (
         <li id={"nav_" + i} key={i}>
           <a className={"am-link-muted" + cls} href={"#/" + d.id} params={{id: d.id}} onClick={this.loadListData.bind(this, d.id, i)}>{d.name}</a>
@@ -203,8 +205,8 @@ var Listbar = React.createClass({
             <p className="am-center am-margin-xs">{con.teacherName} 老师</p>
         </div>
         <div className="am-list-main am-u-sm-8">
-          <h4 class="am-list-item am-margin-bottom-0">{con.courseName}</h4>
-          <div class="am-list-item-text">
+          <h4 className="am-list-item am-margin-bottom-0">{con.courseName}</h4>
+          <div className="am-list-item-text">
             <p className="courselist_price am-margin-bottom-xs">课程价：<span className="am-text-danger">{con.price}</span> 元</p>
           </div>
           {btn}

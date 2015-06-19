@@ -303,8 +303,7 @@ var CourseContent = React.createClass({
           此页面上的内容需要较新版本的浏览器
         </video>
     );
-    var countdown = "";
-    var btn = "";
+    var countdown = "", btn = "", shareBtn = "";
     if(_data.type != 1){
       // 帮TA砍价
       btn = (
@@ -316,8 +315,13 @@ var CourseContent = React.createClass({
           {/*<UI.Button amSize="lg" amStyle="warning" round className="am-center course_btn">帮TA砍价</UI.Button>*/}
         </div>
       );
+      shareBtn = (
+        <a className="am-btn am-center am-btn-success am-btn-sm am-round"
+              href="http://mp.weixin.qq.com/s?__biz=MjM5MzA3ODIwMA==&mid=209968557&idx=1&sn=0b92f769e876d4a19d4f8513dca40dd8#rd"
+            >关注学而思网校参加砍价</a>
+      );
     }else{
-      if(_data.bargainEndTime){
+      if(_data.hasOwnProperty('bargainEndTime')){
         // 立即购买
         btn = (
           <div className="">
@@ -326,10 +330,7 @@ var CourseContent = React.createClass({
             <UI.Button amSize="lg" onClick={this.handleShare} amStyle="primary" round className="course_btn am-fr am-margin-right-sm">分享给朋友帮砍价</UI.Button>
           </div>
         );
-        // 倒计时
-        countdown = (
-            <CountDown start={_data.bargainStartTime} end={_data.bargainEndTime} />
-        );
+        
       }else{
         // 先砍一下
         btn = (
@@ -342,6 +343,13 @@ var CourseContent = React.createClass({
         );  
       }
       
+      
+    }
+    if(_data.hasOwnProperty('bargainEndTime')){
+    // 倒计时
+      countdown = (
+          <CountDown start={_data.bargainStartTime} end={_data.bargainEndTime} />
+      );
     }
     var bargain_price = "";
     if(_data.bargainPrice){
@@ -376,8 +384,8 @@ var CourseContent = React.createClass({
             {btn}
           </UI.ButtonToolbar>
           <div className="countdown am-margin-top-sm">{countdown}</div>
-          <div className="follow_wechat am-margin-top-sm">
-            <UI.Button amStyle="success" round amSize="sm " className="am-center">关注学而思网校参加砍价</UI.Button>
+          <div className="follow_wechat am-margin-sm am-text-center ">
+            {shareBtn}
           </div>
         </UI.Article>
         <BargainUsers users={this.props.users} />

@@ -50,6 +50,10 @@
 	margin-bottom: 0.8rem;
 }
 
+.follow_wechat .am-btn {
+	display: inline-block;
+	margin: 0 auto;
+}
 
 .share_box .am-modal {
 	display: block;
