@@ -292,17 +292,26 @@ var CourseContent = React.createClass({
         var _now = new Date();
         var _end = _data.bargainEndTime * 1000;
         if(_now.getTime() > _end){
-          _assistBtn = (<a href="#/assist" className="am-btn am-btn-warning am-disabled am-btn-lg am-fl am-margin-left-sm am-round course_btn">帮TA砍价</a>);
+          _assistBtn = (<a href="#/assist" className="am-btn am-btn-warning am-disabled am-btn-lg am-fl am-round course_btn">帮TA砍价</a>);
         }
       }
       
       // 帮TA砍价
       btn = (
-        <div className="">
-          {_assistBtn}
-          <a href="/Welfares/" className="am-btn am-btn-primary am-btn-lg am-fr am-round course_btn am-margin-right-sm">我也要参加</a>
-        </div>
+        <ul className="am-avg-sm-2">
+          <li>{_assistBtn}</li>
+          <li>
+            <a href="/Welfares/" className="am-btn am-btn-primary am-btn-lg am-fr am-round course_btn">我也要参加</a>
+          </li>
+        </ul>
       );
+      // btn = (
+        
+      //   <div className="">
+      //     {_assistBtn}
+      //     <a href="/Welfares/" className="am-btn am-btn-primary am-btn-lg am-fr am-round course_btn am-margin-right-sm">我也要参加</a>
+      //   </div>
+      // );
       shareBtn = (
         <a className="am-btn am-center am-btn-success am-btn-sm am-round"
               href="http://mp.weixin.qq.com/s?__biz=MjM5MzA3ODIwMA==&mid=209968557&idx=1&sn=0b92f769e876d4a19d4f8513dca40dd8#rd"
@@ -312,12 +321,18 @@ var CourseContent = React.createClass({
       if(_data.hasOwnProperty('bargainEndTime')){
         // 立即购买
         btn = (
-          <div className="">
-          <a href={"/ShoppingCart/addCart/"+ this.props.cid + "-0-0-0"} className="am-btn am-btn-danger am-btn-lg am-center am-round am-fl am-margin-left-sm course_btn">立即购买</a>
-            {/*<UI.Button amSize="lg" amStyle="danger" round className="course_btn am-fl am-margin-left-sm">立即购买</UI.Button>*/}
-            <UI.Button amSize="lg" onClick={this.handleShare} amStyle="primary" round className="course_btn am-fr am-margin-right-sm">分享给朋友帮砍价</UI.Button>
-          </div>
+          <ul className="am-avg-sm-2">
+            <li><a href={"/ShoppingCart/addCart/"+ this.props.cid + "-0-0-0"} className="am-btn am-btn-danger am-btn-lg am-center am-round am-fl course_btn">立即购买</a></li>
+            <li><UI.Button amSize="lg" onClick={this.handleShare} amStyle="primary" round className="course_btn am-fr">分享给朋友帮砍价</UI.Button></li>
+          </ul>
         );
+        // btn = (
+        //   <div className="">
+        //   <a href={"/ShoppingCart/addCart/"+ this.props.cid + "-0-0-0"} className="am-btn am-btn-danger am-btn-lg am-center am-round am-fl am-margin-left-sm course_btn">立即购买</a>
+        //     {<UI.Button amSize="lg" amStyle="danger" round className="course_btn am-fl am-margin-left-sm">立即购买</UI.Button>}
+        //     <UI.Button amSize="lg" onClick={this.handleShare} amStyle="primary" round className="course_btn am-fr am-margin-right-sm">分享给朋友帮砍价</UI.Button>
+        //   </div>
+        // );
         
       }else{
         // 先砍一下
