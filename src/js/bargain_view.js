@@ -179,32 +179,6 @@ var CountDown = React.createClass({
     var endTime = this.props.end * 1000;
     var lag = (endTime - startTime) / 1000; //当前时间和结束时间之间的秒数
 
-
-    // console.log('===============');
-    // console.log('end: ' + endTime);
-    // console.log('str: ' + startTime);
-
-
-
-    // var nowTime = startTime;
-    // var svrTime = this.props.start * 1000;
-    // var newTime = {
-    //   start : svrTime - nowTime,
-    //   end : endTime
-    // };
-    // console.log('s: ' + newTime.start);
-    // console.log('e: ' + newTime.end);
-    // console.log('-----------------------');
-
-    // // var lag = (newTime.end - newTime.start) / 1000; //当前时间和结束时间之间的秒数
-    // // 
-    // // 
-    // var ln = (newTime.end - newTime.start); //当前时间和结束时间之间的秒数
-
-    // ln = ln + nowTime;
-    // console.log('ln: ' + ln);
-    // lag = ln / 1000;
-
     var content = '';
     if (lag > 0) {
       _state.stat = true;
@@ -317,7 +291,9 @@ var CourseContent = React.createClass({
       if(_data.hasOwnProperty('bargainEndTime')){
         var _now = new Date();
         var _end = _data.bargainEndTime * 1000;
-        _assistBtn = (<a href="#/assist" className="am-btn am-btn-warning am-disabled am-btn-lg am-fl am-margin-left-sm am-round course_btn">帮TA砍价</a>);
+        if(_now.getTime() > _end){
+          _assistBtn = (<a href="#/assist" className="am-btn am-btn-warning am-disabled am-btn-lg am-fl am-margin-left-sm am-round course_btn">帮TA砍价</a>);
+        }
       }
       
       // 帮TA砍价
