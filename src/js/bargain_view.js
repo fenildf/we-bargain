@@ -268,6 +268,10 @@ var CourseContent = React.createClass({
         if(!d){
           return false;
         }
+        alert('恭喜您，成功砍掉' + d.price + '元');
+        window.location.reload();
+        return false;
+        this.setState({stat: 1});
       }.bind(this),
       error : function(){}.bind(this)
     });
@@ -290,6 +294,10 @@ var CourseContent = React.createClass({
         if(!d){
           return false;
         }
+        alert('恭喜您，成功砍掉' + d.price + '元');
+        window.location.reload();
+        return false;
+        this.setState({stat: 2});
       }.bind(this),
       error : function(){}.bind(this)
     });
