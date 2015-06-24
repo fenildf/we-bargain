@@ -22,7 +22,7 @@ xue.ajaxCheck = function(d){
   if(d.stat == -1){
     window.location.href = '/Welfares/lists/'; return false;
   }else if(d.stat == 0){
-    // alert(d.data);
+    alert(d.data);
     return false;
   }else{
     return d.data;
@@ -126,13 +126,14 @@ var ShareModal = React.createClass({displayName: "ShareModal",
     );
   }
 });
-var AlertModal = React.createClass({displayName: "AlertModal",
-  render: function() {
-    return (
-      React.createElement(UI.Modal, {type: "alert", title: "提示"}, this.props.content)
-    );
-  }
-});
+
+
+// var modalInstance = (
+//   <UI.ModalTrigger
+//     modal={modal}>
+//     <UI.Button amStyle="primary">Loading 窗口</UI.Button>
+//   </UI.ModalTrigger>
+// );
 
 
 var SetIntervalMixin = {
@@ -215,7 +216,10 @@ var CountDown = React.createClass({displayName: "CountDown",
 // var BargainLoadData = React.createClass({});
 var CourseContent = React.createClass({displayName: "CourseContent",
   getInitialState : function(){
-    return {stat:0, con: ''};
+    return {stat:0};
+  },
+  componentDidMount : function(){
+    // return (<AjaxDialog />);
   },
   handleShare : function(){
     this.setState({ stat: 2 });
@@ -231,19 +235,14 @@ var CourseContent = React.createClass({displayName: "CourseContent",
       complete : function(){
         setTimeout(function(){
           that.setState({stat: 0});
-        }, 3000);
+        }, 2000);
       }.bind(this),
       success : function(result){
         var d = xue.ajaxCheck(result);
-        if(result.stat == 0){
-          this.setState({stat: 3, con : result.data})
-          return false;
-        }
         if(!d){
           return false;
         }
-        this.setState({stat: 1, con : '恭喜您，成功砍掉' + d.price + '元'});
-        // alert('恭喜您，成功砍掉' + d.price + '元');
+        alert('恭喜您，成功砍掉' + d.price + '元');
         window.location.reload();
         return false;
         this.setState({stat: 1});
@@ -254,7 +253,7 @@ var CourseContent = React.createClass({displayName: "CourseContent",
   handleAssist : function(cid, uid){
     var that = this;
     $.ajax({
-      url : '/Welfares/assistBargain/' + cid + '/21210',
+      url : '/Welfares/assistBargain/' + cid + '/' + uid,
       dataType : 'json',
       beforeSend : function(){
         that.setState({stat: 1});
@@ -262,19 +261,14 @@ var CourseContent = React.createClass({displayName: "CourseContent",
       complete : function(){
         setTimeout(function(){
           that.setState({stat: 0});
-        }, 3000);
+        }, 2000);
       }.bind(this),
       success : function(result){
         var d = xue.ajaxCheck(result);
-        if(result.stat == 0){
-          this.setState({stat: 3, con : result.data})
-          return false;
-        }
         if(!d){
           return false;
         }
-        this.setState({stat: 1, con : '恭喜您，成功砍掉' + d.price + '元'});
-        // alert('恭喜您，成功砍掉' + d.price + '元');
+        alert('恭喜您，成功砍掉' + d.price + '元');
         window.location.reload();
         return false;
         this.setState({stat: 2});
@@ -344,8 +338,10 @@ var CourseContent = React.createClass({displayName: "CourseContent",
         // 先砍一下
         btn = (
         React.createElement("div", {className: "coursebtn_single"}, 
-        	React.createElement("a", {href: "#/bargain", onClick: this.handleBargain.bind(this, this.props.cid), className: "am-btn am-btn-warning am-btn-lg am-btn-center am-round course_btn"}, "先砍一下")
-        	/*<UI.Button amSize="lg" amStyle="warning" round className="am-center course_btn">先砍一下</UI.Button>*/
+          /*<UI.ModalTrigger modal={modal}>*/
+        	   React.createElement("a", {href: "#/bargain", onClick: this.handleBargain.bind(this, this.props.cid), className: "am-btn am-btn-warning am-btn-lg am-btn-center am-round course_btn"}, "先砍一下")
+        	/*</UI.ModalTrigger>*/
+          /*<UI.Button amSize="lg" amStyle="warning" round className="am-center course_btn">先砍一下</UI.Button>*/
         )
         );  
       }
@@ -374,32 +370,26 @@ var CourseContent = React.createClass({displayName: "CourseContent",
         )
       );
       dialog = (React.createElement(ShareModal, {content: user_text}));
-    }else if(this.state.stat == 3){
-      dialog = (React.createElement(AlertModal, {content: this.state.con}));
     }
-
-
-    var coursePriceBox = (
-        React.createElement("div", {className: "am-g am-text-lg"}, 
-          React.createElement("div", {className: "am-u-sm-6"}, 
-            React.createElement("div", {className: "am-fl"}, bargain_price)
-          ), 
-          React.createElement("div", {className: "am-u-sm-6"}, 
-            React.createElement("div", {className: "am-fr"}, "课程原价", _data.price, "元")
-          )
-        )
-    );
     return (
       React.createElement("div", null, 
         dialog, 
-        
-        coursePriceBox, 
-        React.createElement(UI.ButtonToolbar, {className: "am-center am-text-center am-margin-sm"}, 
-          btn
-        ), 
-        React.createElement("div", {className: "countdown am-margin-top-sm"}, countdown), 
-        React.createElement("div", {className: "follow_wechat am-margin-sm am-text-center "}, 
-          shareBtn
+        React.createElement(UI.Article, {title: _data.courseName, meta: _video}, 
+          React.createElement("h2", {className: "am-padding-left courseview_teacher"}, _data.teacherName, " 老师 等你来砍价"), 
+          React.createElement(UI.Article.Child, {role: "divider", className: "course_divider"}), 
+
+          React.createElement("div", {className: "am-cf am-text-lg"}, 
+            bargain_price, 
+            React.createElement("div", {className: "am-fr am-padding-right"}, "课程原价", _data.price, "元")
+          ), 
+
+          React.createElement(UI.ButtonToolbar, {className: "am-center am-text-center am-margin-sm"}, 
+            btn
+          ), 
+          React.createElement("div", {className: "countdown am-margin-top-sm"}, countdown), 
+          React.createElement("div", {className: "follow_wechat am-margin-sm am-text-center "}, 
+            shareBtn
+          )
         ), 
         React.createElement(BargainUsers, {users: this.props.users})
       )
@@ -438,13 +428,9 @@ var CourseLoadData = React.createClass({displayName: "CourseLoadData",
 var BargainUsers = React.createClass({displayName: "BargainUsers",
   render: function() {
     var items = this.props.users.map(function(result, i){
-      var imgurl = result.headimg ? result.headimg : 'data:img/jpg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABQAAD/4QNvaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjUtYzAxNCA3OS4xNTE0ODEsIDIwMTMvMDMvMTMtMTI6MDk6MTUgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NUVBMjc2MDY3Qjk5RTExMTlGQzdGNzQwMzMzRUE0M0YiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Nzg0NjA0RkQ3QjY1MTFFNEI0NEFERUE4NUJCMzNEMkMiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Nzg0NjA0RkM3QjY1MTFFNEI0NEFERUE4NUJCMzNEMkMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozNTM4RUFGMUI5NzQxMUUzODA3NkVFOUQxNjJENjVGQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozNTM4RUFGMkI5NzQxMUUzODA3NkVFOUQxNjJENjVGQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pv/uAA5BZG9iZQBkwAAAAAH/2wCEAAICAgICAgICAgIDAgICAwQDAgIDBAUEBAQEBAUGBQUFBQUFBgYHBwgHBwYJCQoKCQkMDAwMDAwMDAwMDAwMDAwBAwMDBQQFCQYGCQ0LCQsNDw4ODg4PDwwMDAwMDw8MDAwMDAwPDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDP/AABEIADIAMgMBEQACEQEDEQH/xABwAAABBAMBAQAAAAAAAAAAAAAAAQIGCAMFBwQJAQEAAAAAAAAAAAAAAAAAAAAAEAACAQMBBQYGAgMBAAAAAAABAgMABAURITESkwZBUWFxgdEyEzNVBxdSFEKi0yQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APpiSdTtoDU9hOtBtMXiMtmpjBjLaS6dNDIwOiID/JiQBQbLK9J9R4WA3N9ZMLZfjnicSKuv8uE6j1oIyWJ3sT60Bqe+gdqe/soGneaBKCyv49toIelcfJCgV7kyS3D6bWfjK6nyAAFBMp4op4ZYZkEkMqMkqEagqRoQR5UFO5VVZZVT4FdlTyBIFAygd7UCHeaBKCyn49ycWQ6atIUBWXGf+WdTptKjUMNOwg0EsyF7DjrK6v5/o2cTSyAbyFGug8TuoKi3M/8AZubi5K8P9iV5eHu42LaemtBhoHe1Ah3mgVEeVxHEjSyNsWNAWYnwA20Hb/xrgc3i5r67yFu1naXkKLDBI2jl1bXiKdmzvoJZ1visjmcDLZYwBrhpY3eIvwcaKdSup2d2w0Fbb2wvcfKYL60ls5V3pKpXXyO4+lB5KB3tQbvp7DNnszaYwMY0lYtcSjesabWI8ewUFncbh8biIUgx9nFbIg04lUcbeLNvJ86DZUBQYZ7eC5jaK4hSeJho0cihlPoaCvn5B6Yt8DeW93YJ8uwyHEPkbxFKu0qvgQdR60HP9D/rrQSXpfqBemstJkHtDeI8LwtGGCsOJgdQTqP8aDo37btPsk/OT2oD9t2f2Sfmp7UB+27P7JPzU9qA/bdn9kn5qe1BEur+t4uprG2soca9oIJ/nNLI4YnRSoUAAd+2ggv/ACoHN8TfS30CcqgOVQHKoDlUByqDNyvp0H//2Q==';
-      
       return (
         React.createElement("tr", {key: "user_" + i}, 
-          React.createElement("td", {className: "am-text-middle"}, 
-            React.createElement(UI.Image, {src: imgurl, width: "46", height: "46", thumbnail: true, circle: true})
-          ), 
+          React.createElement("td", {className: "am-text-middle"}, React.createElement(UI.Image, {src: result.headimg, width: "46", height: "46", thumbnail: true, circle: true})), 
           React.createElement("td", {className: "am-text-middle"}, result.nickname), 
           React.createElement("td", {className: "am-text-middle"}, "砍掉", React.createElement("strong", {className: "am-text-danger"}, result.price), "元")
         )
