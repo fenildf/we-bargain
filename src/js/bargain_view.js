@@ -338,10 +338,8 @@ var CourseContent = React.createClass({
         // 先砍一下
         btn = (
         <div className="coursebtn_single">
-          {/*<UI.ModalTrigger modal={modal}>*/}
-        	   <a href="#/bargain" onClick={this.handleBargain.bind(this, this.props.cid)} className="am-btn am-btn-warning am-btn-lg am-btn-center am-round course_btn">先砍一下</a>
-        	{/*</UI.ModalTrigger>*/}
-          {/*<UI.Button amSize="lg" amStyle="warning" round className="am-center course_btn">先砍一下</UI.Button>*/}
+        	<a href="#/bargain" onClick={this.handleBargain.bind(this, this.props.cid)} className="am-btn am-btn-warning am-btn-lg am-btn-center am-round course_btn">先砍一下</a>
+        	{/*<UI.Button amSize="lg" amStyle="warning" round className="am-center course_btn">先砍一下</UI.Button>*/}
         </div>
         );  
       }
@@ -371,26 +369,30 @@ var CourseContent = React.createClass({
       );
       dialog = (<ShareModal content={user_text} />);
     }
+
+
+    var coursePriceBox = (
+        <div class="am-g am-text-lg">
+          <div class="am-u-sm-6">
+            <div class="am-fl">{bargain_price}</div>
+          </div>
+          <div className="am-u-sm-6">
+            <div className="am-fr">课程原价{_data.price}元</div>
+          </div>
+        </div>
+    );
     return (
       <div>
         {dialog}
-        <UI.Article title={_data.courseName} meta={_video}>
-          <h2 className="am-padding-left courseview_teacher">{_data.teacherName} 老师 等你来砍价</h2>
-          <UI.Article.Child role="divider" className="course_divider" />
-
-          <div className="am-cf am-text-lg">
-            {bargain_price}
-            <div className="am-fr am-padding-right">课程原价{_data.price}元</div>
-          </div>
-
-          <UI.ButtonToolbar className="am-center am-text-center am-margin-sm">
-            {btn}
-          </UI.ButtonToolbar>
-          <div className="countdown am-margin-top-sm">{countdown}</div>
-          <div className="follow_wechat am-margin-sm am-text-center ">
-            {shareBtn}
-          </div>
-        </UI.Article>
+        
+        {coursePriceBox}
+        <UI.ButtonToolbar className="am-center am-text-center am-margin-sm">
+          {btn}
+        </UI.ButtonToolbar>
+        <div className="countdown am-margin-top-sm">{countdown}</div>
+        <div className="follow_wechat am-margin-sm am-text-center ">
+          {shareBtn}
+        </div>
         <BargainUsers users={this.props.users} />
       </div>
     );
