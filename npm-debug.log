@@ -1,11 +1,11 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'E:\\server\\nodejs\\\\node.exe',
-1 verbose cli   'E:\\server\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli [ 'C:\\Program Files\\iojs\\node.exe',
+1 verbose cli   'C:\\Program Files\\iojs\\node_modules\\npm\\bin\\npm-cli.js',
 1 verbose cli   'install',
 1 verbose cli   '-g',
 1 verbose cli   'react-tools' ]
-2 info using npm@2.10.1
-3 info using node@v0.12.4
+2 info using npm@2.11.3
+3 info using node@v2.3.1
 4 verbose install initial load of C:\Program Files\nodejs\node_global\package.json
 5 verbose readDependencies loading dependencies from C:\Program Files\nodejs\node_global\package.json
 6 silly cache add args [ 'react-tools', null ]
@@ -26,25 +26,25 @@
 16 verbose addNameRange registry:https://registry.npmjs.org/react-tools not in flight; fetching
 17 verbose request uri https://registry.npmjs.org/react-tools
 18 verbose request no auth needed
-19 info attempt registry request try #1 at 07:40:08
-20 verbose request id 55578bc1c98ffd86
+19 info attempt registry request try #1 at 19:20:53
+20 verbose request id 1e5febca22203cfd
 21 http request GET https://registry.npmjs.org/react-tools
 22 http 200 https://registry.npmjs.org/react-tools
 23 silly get cb [ 200,
 23 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-23 silly get     etag: '"304HUX9N64PX0VDY14AN594D1"',
+23 silly get     etag: '"16KJK3HEXIU7DDN2BVOBEBS5W"',
 23 silly get     'content-type': 'application/json',
 23 silly get     'cache-control': 'max-age=60',
-23 silly get     'content-length': '78284',
+23 silly get     'content-length': '78268',
 23 silly get     'accept-ranges': 'bytes',
-23 silly get     date: 'Mon, 15 Jun 2015 23:40:11 GMT',
+23 silly get     date: 'Wed, 24 Jun 2015 11:20:55 GMT',
 23 silly get     via: '1.1 varnish',
-23 silly get     age: '57',
+23 silly get     age: '20',
 23 silly get     connection: 'keep-alive',
-23 silly get     'x-served-by': 'cache-lax1427-LAX',
+23 silly get     'x-served-by': 'cache-lax1435-LAX',
 23 silly get     'x-cache': 'HIT',
 23 silly get     'x-cache-hits': '1',
-23 silly get     'x-timer': 'S1434411611.062622,VS0,VE1',
+23 silly get     'x-timer': 'S1435144855.802140,VS0,VE0',
 23 silly get     vary: 'Accept' } ]
 24 verbose get saving react-tools to c:\Program Files\nodejs\node_cache\registry.npmjs.org\react-tools\.cache.json
 25 silly addNameRange number 2 { name: 'react-tools', range: '*', hasData: true }
@@ -94,28 +94,30 @@
 33 verbose addRemoteTarball https://registry.npmjs.org/react-tools/-/react-tools-0.13.3.tgz not in flight; adding
 34 verbose addRemoteTarball [ 'https://registry.npmjs.org/react-tools/-/react-tools-0.13.3.tgz',
 34 verbose addRemoteTarball   'da6ac7d4d7777a59a5e951cf46e72fd4b6b40a2c' ]
-35 info retry fetch attempt 1 at 07:40:09
-36 info attempt registry request try #1 at 07:40:09
+35 info retry fetch attempt 1 at 19:20:55
+36 info attempt registry request try #1 at 19:20:55
 37 http fetch GET https://registry.npmjs.org/react-tools/-/react-tools-0.13.3.tgz
 38 http fetch 200 https://registry.npmjs.org/react-tools/-/react-tools-0.13.3.tgz
 39 silly fetchAndShaCheck shasum da6ac7d4d7777a59a5e951cf46e72fd4b6b40a2c
-40 verbose addTmpTarball C:\Users\Marco\AppData\Local\Temp\npm-13360-b200a3a2\registry.npmjs.org\react-tools\-\react-tools-0.13.3.tgz not in flight; adding
+40 verbose addTmpTarball C:\Users\Marco\AppData\Local\Temp\npm-7456-21e66c4a\registry.npmjs.org\react-tools\-\react-tools-0.13.3.tgz not in flight; adding
 41 verbose addTmpTarball already have metadata; skipping unpack for react-tools@0.13.3
-42 verbose stack Error: EPERM, mkdir 'c:\Program Files\nodejs\node_cache\react-tools'
+42 verbose stack Error: EPERM: operation not permitted, mkdir 'c:\Program Files\nodejs\node_cache\react-tools'
 42 verbose stack     at Error (native)
 43 verbose cwd E:\work\GitHub\xueersi\we-bargain
 44 error Windows_NT 6.3.9600
-45 error argv "E:\\server\\nodejs\\\\node.exe" "E:\\server\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "react-tools"
-46 error node v0.12.4
-47 error npm  v2.10.1
+45 error argv "C:\\Program Files\\iojs\\node.exe" "C:\\Program Files\\iojs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "react-tools"
+46 error node v2.3.1
+47 error npm  v2.11.3
 48 error path c:\Program Files\nodejs\node_cache\react-tools
 49 error code EPERM
 50 error errno -4048
-51 error Error: EPERM, mkdir 'c:\Program Files\nodejs\node_cache\react-tools'
-51 error     at Error (native)
-51 error  { [Error: EPERM, mkdir 'c:\Program Files\nodejs\node_cache\react-tools']
-51 error   errno: -4048,
-51 error   code: 'EPERM',
-51 error   path: 'c:\\Program Files\\nodejs\\node_cache\\react-tools' }
-52 error Please try running this command again as root/Administrator.
-53 verbose exit [ -4048, true ]
+51 error syscall mkdir
+52 error Error: EPERM: operation not permitted, mkdir 'c:\Program Files\nodejs\node_cache\react-tools'
+52 error     at Error (native)
+52 error  { [Error: EPERM: operation not permitted, mkdir 'c:\Program Files\nodejs\node_cache\react-tools']
+52 error   errno: -4048,
+52 error   code: 'EPERM',
+52 error   syscall: 'mkdir',
+52 error   path: 'c:\\Program Files\\nodejs\\node_cache\\react-tools' }
+53 error Please try running this command again as root/Administrator.
+54 verbose exit [ -4048, true ]
