@@ -20,7 +20,8 @@ var UI = AMUIReact;
 var xue = xue || {};
 xue.ajaxCheck = function(d){
   if(d.stat == -1){
-    window.location.href = '/Welfares/lists/'; return false;
+    window.location.href = d.data;
+    return false;
   }else if(d.stat == 0){
     // alert(d.data);
     return false;
@@ -55,10 +56,7 @@ React.initializeTouchEvents(true);
 var AppWrap = React.createClass({
   render : function(){
     return (
-      <div className="app_wrap">
-        <RouteHandler />
-        {/*this.props.children*/}        
-      </div>
+      <div className="app_wrap"> </div>
     );
   }
 });
@@ -70,9 +68,7 @@ var AppWrap = React.createClass({
 var NotFound = React.createClass({
   render : function(){
     return (
-      <div className="app_notfound">
-        不好意思，您是不是迷路了！
-      </div>
+      <div className="app_notfound"> 不好意思，您是不是迷路了！ </div>
     );
   }
 });
@@ -215,10 +211,11 @@ var CountDown = React.createClass({
 // var BargainLoadData = React.createClass({});
 var CourseContent = React.createClass({
   getInitialState : function(){
-    return {stat:0, con: ''};
+    return {stat:0, con: '', err: 0, errorInfo: ''};
   },
   handleShare : function(){
-    this.setState({ stat: 2 });
+    // 弹出分享提示
+    this.setState({ stat: 2, con: '', err: 0, errorInfo: '' });
   },
   handleBargain : function(cid, uid){
     var that = this;
@@ -226,27 +223,29 @@ var CourseContent = React.createClass({
       url : '/Welfares/firstBargain/' + cid,
       dataType : 'json',
       beforeSend : function(){
-        that.setState({stat: 1});
+        // 弹出砍价动画
+        that.setState({stat: 1, con: '', err: 0, errorInfo: ''});
       }.bind(this),
       complete : function(){
         setTimeout(function(){
+          // 取消砍价动画
           that.setState({stat: 0});
         }, 3000);
       }.bind(this),
       success : function(result){
         var d = xue.ajaxCheck(result);
         if(result.stat == 0){
-          this.setState({stat: 3, con : result.data})
+          this.setState({err: 1, errorInfo: result.data, stat: 0, con:''});
+          // this.setState({stat: 3, con : result.data})
           return false;
         }
         if(!d){
           return false;
         }
-        this.setState({stat: 1, con : '恭喜您，成功砍掉' + d.price + '元'});
+        this.setState({stat: 1, con : '恭喜您，成功砍掉' + d.price + '元', err: 0, errorInfo:''});
         // alert('恭喜您，成功砍掉' + d.price + '元');
-        window.location.reload();
+        // window.location.reload();
         return false;
-        this.setState({stat: 1});
       }.bind(this),
       error : function(){}.bind(this)
     });
@@ -257,34 +256,33 @@ var CourseContent = React.createClass({
       url : '/Welfares/assistBargain/' + cid + '/21210',
       dataType : 'json',
       beforeSend : function(){
-        that.setState({stat: 1});
+        that.setState({stat: 1, con: '', err: 0, errorInfo: ''});
       }.bind(this),
       complete : function(){
         setTimeout(function(){
-          that.setState({stat: 0});
+          that.setState({stat: 0, con: '', err: 0, errorInfo: ''});
         }, 3000);
       }.bind(this),
       success : function(result){
         var d = xue.ajaxCheck(result);
         if(result.stat == 0){
-          this.setState({stat: 3, con : result.data})
+          this.setState({err: 1, errorInfo : result.data, stat: 0, con:''});
           return false;
         }
         if(!d){
           return false;
         }
-        this.setState({stat: 1, con : '恭喜您，成功砍掉' + d.price + '元'});
+        this.setState({stat: 1, con : '恭喜您，成功砍掉' + d.price + '元', err: 0, errorInfo:''});
         // alert('恭喜您，成功砍掉' + d.price + '元');
-        window.location.reload();
+        // window.location.reload();
         return false;
-        this.setState({stat: 2});
       }.bind(this),
       error : function(){}.bind(this)
     });
   },
   render: function() {
     var _data = this.props.data;
-
+    
     var _video = (
         <video id="CourseVideo" controls height="250" width="100%;" title="暂停">
           <source src={_data.videoPath} />
@@ -344,8 +342,8 @@ var CourseContent = React.createClass({
         // 先砍一下
         btn = (
         <div className="coursebtn_single">
-        	<a href="#/bargain" onClick={this.handleBargain.bind(this, this.props.cid)} className="am-btn am-btn-warning am-btn-lg am-btn-center am-round course_btn">先砍一下</a>
-        	{/*<UI.Button amSize="lg" amStyle="warning" round className="am-center course_btn">先砍一下</UI.Button>*/}
+        	{/*<a href="#/bargain" onClick={this.handleBargain.bind(this, this.props.cid)} className="am-btn am-btn-warning am-btn-lg am-btn-center am-round course_btn">先砍一下</a>*/}
+        	<UI.Button amSize="lg" amStyle="warning" round className="am-center course_btn" onClick={this.handleBargain.bind(this, this.props.cid)}>先砍一下</UI.Button>
         </div>
         );  
       }
@@ -374,11 +372,11 @@ var CourseContent = React.createClass({
         </p>
       );
       dialog = (<ShareModal content={user_text} />);
-    }else if(this.state.stat == 3){
-      dialog = (<AlertModal content={this.state.con} />);
     }
-
-
+    var errorTips = '';
+    if(this.state.err == 1){
+      errorTips = (<AlertModal content={this.state.con} />);
+    }
     var coursePriceBox = (
         <div className="am-g am-text-lg">
           <div className="am-u-sm-6">
@@ -392,7 +390,7 @@ var CourseContent = React.createClass({
     return (
       <div>
         {dialog}
-        
+        {errorTips}        
         {coursePriceBox}
         <UI.ButtonToolbar className="am-center am-text-center am-margin-sm">
           {btn}

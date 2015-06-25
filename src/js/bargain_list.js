@@ -20,7 +20,8 @@ var UI = AMUIReact;
 var xue = xue || {};
 xue.ajaxCheck = function(d){
   if(d.stat == -1){
-    window.location.href = '/Welfares/lists/'; return false;
+    window.location.href = d.data;
+    return false;
   }else if(d.stat == 0){
     alert(d.data);
     return false;
@@ -99,7 +100,6 @@ var ListPage = React.createClass({
         if(!d){
           return false;
         }
-        // if(result.stat !== 1){ return false; }
         var list = [], sid = this.props.defaultId || 0;
         
         $.each(result.data, function(k, v){
@@ -146,8 +146,6 @@ var ListNavbar = React.createClass({
         if(!d){
           return false;
         }
-        // if(result.stat !== 1){ return false; }
-        // var d = result.data;
         this.setState({data: d, id: id});
       }.bind(this),
       error: function(){}.bind(this)
@@ -198,10 +196,12 @@ var Listbar = React.createClass({
           </div>
         );
       }
+      var imgurl = con.teacherImg ? con.teacherImg : 'data:img/jpg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABQAAD/4QNvaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjUtYzAxNCA3OS4xNTE0ODEsIDIwMTMvMDMvMTMtMTI6MDk6MTUgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NUVBMjc2MDY3Qjk5RTExMTlGQzdGNzQwMzMzRUE0M0YiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Nzg0NjA0RkQ3QjY1MTFFNEI0NEFERUE4NUJCMzNEMkMiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Nzg0NjA0RkM3QjY1MTFFNEI0NEFERUE4NUJCMzNEMkMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozNTM4RUFGMUI5NzQxMUUzODA3NkVFOUQxNjJENjVGQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozNTM4RUFGMkI5NzQxMUUzODA3NkVFOUQxNjJENjVGQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pv/uAA5BZG9iZQBkwAAAAAH/2wCEAAICAgICAgICAgIDAgICAwQDAgIDBAUEBAQEBAUGBQUFBQUFBgYHBwgHBwYJCQoKCQkMDAwMDAwMDAwMDAwMDAwBAwMDBQQFCQYGCQ0LCQsNDw4ODg4PDwwMDAwMDw8MDAwMDAwPDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDP/AABEIADIAMgMBEQACEQEDEQH/xABwAAABBAMBAQAAAAAAAAAAAAAAAQIGCAMFBwQJAQEAAAAAAAAAAAAAAAAAAAAAEAACAQMBBQYGAgMBAAAAAAABAgMABAURITESkwZBUWFxgdEyEzNVBxdSFEKi0yQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APpiSdTtoDU9hOtBtMXiMtmpjBjLaS6dNDIwOiID/JiQBQbLK9J9R4WA3N9ZMLZfjnicSKuv8uE6j1oIyWJ3sT60Bqe+gdqe/soGneaBKCyv49toIelcfJCgV7kyS3D6bWfjK6nyAAFBMp4op4ZYZkEkMqMkqEagqRoQR5UFO5VVZZVT4FdlTyBIFAygd7UCHeaBKCyn49ycWQ6atIUBWXGf+WdTptKjUMNOwg0EsyF7DjrK6v5/o2cTSyAbyFGug8TuoKi3M/8AZubi5K8P9iV5eHu42LaemtBhoHe1Ah3mgVEeVxHEjSyNsWNAWYnwA20Hb/xrgc3i5r67yFu1naXkKLDBI2jl1bXiKdmzvoJZ1visjmcDLZYwBrhpY3eIvwcaKdSup2d2w0Fbb2wvcfKYL60ls5V3pKpXXyO4+lB5KB3tQbvp7DNnszaYwMY0lYtcSjesabWI8ewUFncbh8biIUgx9nFbIg04lUcbeLNvJ86DZUBQYZ7eC5jaK4hSeJho0cihlPoaCvn5B6Yt8DeW93YJ8uwyHEPkbxFKu0qvgQdR60HP9D/rrQSXpfqBemstJkHtDeI8LwtGGCsOJgdQTqP8aDo37btPsk/OT2oD9t2f2Sfmp7UB+27P7JPzU9qA/bdn9kn5qe1BEur+t4uprG2soca9oIJ/nNLI4YnRSoUAAd+2ggv/ACoHN8TfS30CcqgOVQHKoDlUByqDNyvp0H//2Q==';
+      
       return (
         <li key={con.courseId} id={"view_" + con.courseId} className="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left courselist_item">
         <div className="am-list-thumb am-u-sm-3 am-text-center am-padding-xs">
-            <UI.Image src={con.teacherImg} width="60" height="60" responsive className="am-center am-img-thumbnail am-radius" />
+            <UI.Image src={imgurl} width="60" height="60" responsive className="am-center am-img-thumbnail am-radius" />
             <p className="am-center am-margin-xs">{con.teacherName}</p>
         </div>
         <div className="am-list-main am-u-sm-9">
