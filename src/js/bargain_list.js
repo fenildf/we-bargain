@@ -24,7 +24,7 @@ xue.ajaxCheck = function(d){
     return false;
   }else if(d.stat == 0){
     alert(d.data);
-    return false;
+    // return false;
   }else{
     return d.data;
   }
@@ -35,18 +35,6 @@ xue.ajaxCheck = function(d){
  */
 React.initializeTouchEvents(true);
 
-/**
- * 路由相关
- * @type {[type]}
- */
-// var Router = ReactRouter; // or var Router = ReactRouter; in browsers
-
-// var DefaultRoute = Router.DefaultRoute;
-// var Link = Router.Link;
-// var Route = Router.Route;
-// var RouteHandler = Router.RouteHandler;
-
-
 /* ============== Public Component ============= */
 /**
  * AppWrap 用来绑定路由内容的外部容器
@@ -56,10 +44,7 @@ React.initializeTouchEvents(true);
 var AppWrap = React.createClass({
   render : function(){
     return (
-      <div className="app_wrap">
-        <RouteHandler />
-        {/*this.props.children*/}        
-      </div>
+      <div className="app_wrap"></div>
     );
   }
 });
@@ -109,7 +94,7 @@ var ListPage = React.createClass({
         this.setState({data: list, id : sid});
       }.bind(this),
       error: function(xhr, status, err){
-        console.log(this.props.url, status, err.toString());
+        // console.log(this.props.url, status, err.toString());
       }.bind(this)
     });
   },
@@ -155,8 +140,8 @@ var ListNavbar = React.createClass({
     var nav = this.props.data;
     var _item = nav.map(function(d, i){
       var cls = this.state.id == d.id ? ' am-active' : '';
-      console.log('cls: ' + cls);
-      console.log('---------------');
+      // console.log('cls: ' + cls);
+      // console.log('---------------');
       return (
         <li id={"nav_" + i} key={i}>
           <a className={"am-link-muted" + cls} href={"#/" + d.id} params={{id: d.id}} onClick={this.loadListData.bind(this, d.id, i)}>{d.name}</a>
@@ -224,30 +209,7 @@ var Listbar = React.createClass({
 
 
 
-
-/* ============== Router ============= */
-
-// var routes = (
-//   <Route path="/" component={AppWrap}>
-//     <Route name="list" handler={CourseListBox} >
-//       <Route name="listitem" path="/list/:subjectId" handler={ListLoad} />
-//       <DefaultRoute name="list-index" handler={CourseListBody} />
-//     </Route>
-//     <Route name="view" path="view/:courseId" handler={CourseView} />
-//     <DefaultRoute handler={Welcome} />
-//   </Route>
-// );
- // 
-// var routes = (
-//   <Route path="/" handler={ListPage}>
-//     <Route name="list" path="#/:id" component={Listbar} />
-//     <DefaultRoute handler={ListPage} />
-//   </Route>
-// );
-// Router.run(routes, Router.HistoryLocation, function (Handler) {
-//   React.render(<Handler/>, mountNode);
-// });
 React.render(
-  <ListPage navUrl={bargain.subjectUrl} listUrl={bargain.listUrl} defaultId={bargain.defaultId} />,
+  <ListPage navUrl={bargain.navUrl} listUrl={bargain.listUrl} defaultId={bargain.defaultId} />,
   mountNode
 );
