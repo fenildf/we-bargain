@@ -207,9 +207,80 @@ var Listbar = React.createClass({
   }
 });
 
+/* ============== Course List Pages ============= */
+var Navbar = React.createClass({
+  getInitialState : function(){
+    return {activeId: 0};
+  },
+  handleClick : function(id){
+    this.setState({activeId: id});
+  },
+  render: function() {
+    var nav = this.props.data;
+    var _activeId = this.state.activeId;
+    console.log(_activeId);
+    var _item = nav.map(function(d, i){
+      var cls = d.id == _activeId ? ' am-active' : '';
+      // console.log('cls: ' + cls);
+      // console.log('---------------');
+      console.log(cls);
+      return (
+        <li id={"nav_" + i} className={cls} key={i}>
+          <a className={"am-link-muted"} href={"#/" + d.id} params={{id: d.id}} onClick={this.handleClick.bind(this, d.id)}>{d.name}</a>
+        </li>
+      );
+    }, this);
+    return (
+      <UI.Panel className="am-margin-top-sm">
+        <ul className="am-nav am-nav-pills am-nav-justify navlist">
+          {_item}
+        </ul>
+      </UI.Panel>
+    );
+  }
+});
+var ListPageBox = React.createClass({
+  getInitialState : function(){
+    return {navData: [], defaultId: 0};
+  },
+  componentDidMount : function(){
+    this.loadList();
+  },
+  loadList : function(){
+    $.ajax({
+      url : this.props.navUrl,
+      dataType : 'json',
+      success : function(result){
+        var d = result;
+        if(d.stat == -1){
+          window.location.href = d.data;
+          return false;
+        }else if(d.stat == 0){
+          alert(d.data);
+        }else{
+          var _list = [], _defaultId = 0;
+          $.each(d.data, function(k, v){
+            _defaultId = _defaultId == 0 ? v.subjectId : _defaultId;
+            _list.push({id: v.id, name: v.name});
+          });
+          this.setState({navData: _list, defaultId: _defaultId});
+        }
+      }.bind(this)
+    });
+  },
+  render: function() {
+    var data = this.state.navData;
+    return (
+      <UI.Container>
+        <Navbar data={data} id={this.state.defaultId} />
+      </UI.Container>
+    );
+  }
+});
+/* ============== Course List Pages ============= */
 
 
 React.render(
-  <ListPage navUrl={bargain.navUrl} listUrl={bargain.listUrl} defaultId={bargain.defaultId} />,
+  <ListPageBox navUrl={bargain.navUrl} defaultId={bargain.defaultId} />,
   mountNode
 );

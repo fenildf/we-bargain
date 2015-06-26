@@ -2,16 +2,22 @@
 	"stat": 1,
 	"rows": 3,
 	"data": [{
-		"subjectId": 2,
-		"subjectName": "\u6570\u5b66",
-		"courseNum": 3
+		"id": "2",
+		"name": "\u6570\u5b66",
+		"digit": "2",
+		"alias": "shuxue",
+		"sort_flag": "1"
 	}, {
-		"subjectId": 1,
-		"subjectName": "\u8bed\u6587",
-		"courseNum": 1
+		"id": "1",
+		"name": "\u8bed\u6587",
+		"digit": "1",
+		"alias": "yuwen",
+		"sort_flag": "2"
 	}, {
-		"subjectId": 3,
-		"subjectName": "\u82f1\u8bed",
-		"courseNum": 1
+		"id": "3",
+		"name": "\u82f1\u8bed",
+		"digit": "4",
+		"alias": "yingyu",
+		"sort_flag": "3"
 	}]
 }
