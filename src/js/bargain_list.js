@@ -88,7 +88,7 @@ var ListPage = React.createClass({
         var list = [], sid = this.props.defaultId || 0;
         
         $.each(result.data, function(k, v){
-          sid = sid == 0 ? v.subjectId : sid;
+          sid = sid == 0 ? v.id : sid;
           list.push({id: v.id, name: v.name});
         });
         this.setState({data: list, id : sid});
@@ -102,7 +102,7 @@ var ListPage = React.createClass({
     var data = this.state.data;
     return (
       <UI.Container>
-        <ListNavbar data={this.state.data} id={this.state.id} url={this.props.listUrl} />
+        <ListNavbar data={this.state.data} id={this.state.id} url={bargain.listUrl} />
       </UI.Container>
     );
   }
@@ -115,11 +115,13 @@ var ListNavbar = React.createClass({
   componentDidMount : function(){
     var that = this;
     setTimeout(function(){
+      that.setState({id: that.props.id});
       that.loadListData(that.props.id);
     }, 500);
   },
   
   handleClick : function(id, i){
+    this.setState({id: id});
     this.loadListData(id);
   },
   loadListData : function(id, i){
@@ -138,13 +140,14 @@ var ListNavbar = React.createClass({
   },
   render: function() {
     var nav = this.props.data;
+    var _id = this.state.id;
     var _item = nav.map(function(d, i){
-      var cls = this.state.id == d.id ? ' am-active' : '';
+      var cls = d.id == _id ? ' am-active' : '';
       // console.log('cls: ' + cls);
       // console.log('---------------');
       return (
-        <li id={"nav_" + i} key={i}>
-          <a className={"am-link-muted" + cls} href={"#/" + d.id} params={{id: d.id}} onClick={this.loadListData.bind(this, d.id, i)}>{d.name}</a>
+        <li id={"nav_" + i} className={cls} key={i}>
+          <a className="am-link-muted" href={"#/" + d.id} params={{id: d.id}} onClick={this.loadListData.bind(this, d.id, i)}>{d.name}</a>
         </li>
       );
     }, this);
@@ -208,6 +211,38 @@ var Listbar = React.createClass({
 });
 
 /* ============== Course List Pages ============= */
+var Lists = React.createClass({
+  getInitialState: function(){
+    return {data: []};
+  },
+  componentDidMount : function(){
+    this.loadList(this.props.id);
+  },
+  loadList : function(id){
+    console.log('id: ' + id);
+    $.ajax({
+      url : bargain.listUrl + id + '.json',
+      dataType : 'json',
+      success : function(result){
+        var d = result;
+        console.table(d);
+        if(d.stat == -1){
+          window.location.href = d.data;
+          return false;
+        }else if(d.stat == 0){
+          alert(d.data);
+        }else{
+          this.setState({data: d.data});
+        }
+      }.bind(this)
+    })
+  },
+  render: function() {
+    return (
+      <div>{this.props.id}</div>
+    );
+  }
+});
 var Navbar = React.createClass({
   getInitialState : function(){
     return {activeId: 0};
@@ -218,12 +253,8 @@ var Navbar = React.createClass({
   render: function() {
     var nav = this.props.data;
     var _activeId = this.state.activeId;
-    console.log(_activeId);
     var _item = nav.map(function(d, i){
       var cls = d.id == _activeId ? ' am-active' : '';
-      // console.log('cls: ' + cls);
-      // console.log('---------------');
-      console.log(cls);
       return (
         <li id={"nav_" + i} className={cls} key={i}>
           <a className={"am-link-muted"} href={"#/" + d.id} params={{id: d.id}} onClick={this.handleClick.bind(this, d.id)}>{d.name}</a>
@@ -235,6 +266,7 @@ var Navbar = React.createClass({
         <ul className="am-nav am-nav-pills am-nav-justify navlist">
           {_item}
         </ul>
+        <Lists id={this.state.activeId} />
       </UI.Panel>
     );
   }
@@ -281,6 +313,6 @@ var ListPageBox = React.createClass({
 
 
 React.render(
-  <ListPageBox navUrl={bargain.navUrl} defaultId={bargain.defaultId} />,
+  <ListPage navUrl={bargain.navUrl} defaultId={bargain.defaultId} />,
   mountNode
 );
