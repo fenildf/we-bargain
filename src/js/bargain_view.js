@@ -35,18 +35,6 @@ xue.ajaxCheck = function(d){
  */
 React.initializeTouchEvents(true);
 
-/**
- * 路由相关
- * @type {[type]}
- */
-// var Router = ReactRouter; // or var Router = ReactRouter; in browsers
-
-// var DefaultRoute = Router.DefaultRoute;
-// var Link = Router.Link;
-// var Route = Router.Route;
-// var RouteHandler = Router.RouteHandler;
-
-
 /* ============== Public Component ============= */
 /**
  * AppWrap 用来绑定路由内容的外部容器
@@ -125,7 +113,16 @@ var ShareModal = React.createClass({
 var AlertModal = React.createClass({
   render: function() {
     return (
-      <UI.Modal type="alert" title="提示">{this.props.content}</UI.Modal>
+      <div className="am-modal am-modal-alert" id="my-alert">
+        <div className="am-modal-dialog">
+          <div className="am-modal-bd">
+            {this.props.content}
+          </div>
+          <div className="am-modal-footer">
+            <span className="am-modal-btn">确定</span>
+          </div>
+        </div>
+      </div>
     );
   }
 });
@@ -220,32 +217,28 @@ var CourseContent = React.createClass({
   handleBargain : function(cid, uid){
     var that = this;
     $.ajax({
-      url : '/Welfares/firstBargain/' + cid,
+      url : '/Welfares/firstBargain/' + cid + '.json',
       dataType : 'json',
       beforeSend : function(){
         // 弹出砍价动画
         that.setState({stat: 1, con: '', err: 0, errorInfo: ''});
       }.bind(this),
-      complete : function(){
-        setTimeout(function(){
-          // 取消砍价动画
-          that.setState({stat: 0});
-        }, 3000);
-      }.bind(this),
       success : function(result){
-        var d = xue.ajaxCheck(result);
         if(result.stat == 0){
-          this.setState({err: 1, errorInfo: result.data, stat: 0, con:''});
-          // this.setState({stat: 3, con : result.data})
+          setTimeout(function(){
+            that.setState({stat: 0, con:'', err: 1, errorInfo: result.data});
+            alert(result.data);
+          }, 1000);
+        }else if(result.stat == -1){
+          window.location.href = result.data;
           return false;
+        }else{
+          setTimeout(function(){
+            that.setState({stat: 0, con: '', err: 0, errorInfo: ''});
+            alert('恭喜您，成功砍掉' + result.data.price + '元');
+            window.location.reload();
+          }, 1000);
         }
-        if(!d){
-          return false;
-        }
-        this.setState({stat: 1, con : '恭喜您，成功砍掉' + d.price + '元', err: 0, errorInfo:''});
-        // alert('恭喜您，成功砍掉' + d.price + '元');
-        // window.location.reload();
-        return false;
       }.bind(this),
       error : function(){}.bind(this)
     });
@@ -253,29 +246,32 @@ var CourseContent = React.createClass({
   handleAssist : function(cid, uid){
     var that = this;
     $.ajax({
-      url : '/Welfares/assistBargain/' + cid + '/21210',
+      url : '/Welfares/assistBargain/' + cid + '.json',
       dataType : 'json',
       beforeSend : function(){
         that.setState({stat: 1, con: '', err: 0, errorInfo: ''});
       }.bind(this),
-      complete : function(){
-        setTimeout(function(){
-          that.setState({stat: 0, con: '', err: 0, errorInfo: ''});
-        }, 3000);
-      }.bind(this),
+      // complete : function(){
+      //   setTimeout(function(){
+      //     that.setState({stat: 0, con: '', err: 0, errorInfo: ''});
+      //   }, 3000);
+      // }.bind(this),
       success : function(result){
-        var d = xue.ajaxCheck(result);
         if(result.stat == 0){
-          this.setState({err: 1, errorInfo : result.data, stat: 0, con:''});
+          setTimeout(function(){
+            that.setState({stat: 0, con:'', err: 1, errorInfo: result.data});
+            alert(result.data);
+          }, 1000);
+        }else if(result.stat == -1){
+          window.location.href = result.data;
           return false;
+        }else{
+          setTimeout(function(){
+            that.setState({stat: 0, con: '', err: 0, errorInfo: ''});
+            alert('恭喜您，成功砍掉' + result.data.price + '元');
+            window.location.reload();
+          }, 1000);
         }
-        if(!d){
-          return false;
-        }
-        this.setState({stat: 1, con : '恭喜您，成功砍掉' + d.price + '元', err: 0, errorInfo:''});
-        // alert('恭喜您，成功砍掉' + d.price + '元');
-        // window.location.reload();
-        return false;
       }.bind(this),
       error : function(){}.bind(this)
     });
@@ -309,13 +305,7 @@ var CourseContent = React.createClass({
           </li>
         </ul>
       );
-      // btn = (
-        
-      //   <div className="">
-      //     {_assistBtn}
-      //     <a href="/Welfares/" className="am-btn am-btn-primary am-btn-lg am-fr am-round course_btn am-margin-right-sm">我也要参加</a>
-      //   </div>
-      // );
+
       shareBtn = (
         <a className="am-btn am-center am-btn-success am-btn-sm am-round"
               href="http://mp.weixin.qq.com/s?__biz=MjM5MzA3ODIwMA==&mid=209968557&idx=1&sn=0b92f769e876d4a19d4f8513dca40dd8#rd"
@@ -330,13 +320,7 @@ var CourseContent = React.createClass({
             <li><UI.Button amSize="lg" onClick={this.handleShare} amStyle="primary" round className="course_btn am-fr">分享给朋友帮砍价</UI.Button></li>
           </ul>
         );
-        // btn = (
-        //   <div className="">
-        //   <a href={"/ShoppingCart/addCart/"+ this.props.cid + "-0-0-0"} className="am-btn am-btn-danger am-btn-lg am-center am-round am-fl am-margin-left-sm course_btn">立即购买</a>
-        //     {<UI.Button amSize="lg" amStyle="danger" round className="course_btn am-fl am-margin-left-sm">立即购买</UI.Button>}
-        //     <UI.Button amSize="lg" onClick={this.handleShare} amStyle="primary" round className="course_btn am-fr am-margin-right-sm">分享给朋友帮砍价</UI.Button>
-        //   </div>
-        // );
+
         
       }else{
         // 先砍一下
@@ -375,7 +359,7 @@ var CourseContent = React.createClass({
     }
     var errorTips = '';
     if(this.state.err == 1){
-      errorTips = (<AlertModal content={this.state.con} />);
+      errorTips = (<AlertModal content={this.state.errorInfo} />);
     }
     var coursePriceBox = (
         <div className="am-g am-text-lg">
@@ -386,6 +370,14 @@ var CourseContent = React.createClass({
             <div className="am-fr">课程原价{_data.price}元</div>
           </div>
         </div>
+    );
+    var _console = (
+      <div>
+        <p className="am-text-primary">state: {this.state.stat}</p>
+        <p className="am-text-secondary">con: {this.state.con}</p>
+        <p className="am-text-success">error: {this.state.err}</p>
+        <p className="am-text-warning">errorInfo: {this.state.errorInfo}</p>
+      </div>
     );
     return (
       <div>
